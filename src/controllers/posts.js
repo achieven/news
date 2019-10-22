@@ -12,10 +12,10 @@ exports.update = async (postId, text) => {
     return await postsDao.update(postId, text);
 };
 
-exports.upvote = (postId) => {
-    postsDao.upvote(postId);
+exports.upvote = async (postId) => {
+    return await postsDao.upvote(postId);
 };
 
-exports.downvote = (postId) => {
-    postsDao.downvote(postId);
+exports.downvote = async (postId) => {
+    return await postsDao.downvote(postId);
 };
