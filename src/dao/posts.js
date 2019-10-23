@@ -1,7 +1,7 @@
 const mysql = require('../database/mysql');
 
 const TOP_POSTS_NUMBER = 3;
-
+// TODO insert into errors db
 exports.create = async (uuid, text, createdAt, votes) => {
     try {
         await mysql.query(`insert into posts (id, text, createdAt, votes) values ('${uuid}', '${text}', FROM_UNIXTIME(${createdAt}/1000), ${votes})`);//TODO use knex}
@@ -44,5 +44,10 @@ exports.vote = async (uuid, isUpvote) => {
 };
 
 exports.topPosts = async () => {
-  await mysql.query(`select post.text, post.votes from top_posts top_post join posts post on top_post.id = post.id order by top_post.score`)
+    try {
+        await mysql.query(`select post.text, post.votes from top_posts top_post join posts post on top_post.id = post.id order by top_post.score`)
+    } catch (err) {
+        console.log(err.message);
+        throw err;
+    }
 };
