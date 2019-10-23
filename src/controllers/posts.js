@@ -13,9 +13,15 @@ exports.update = async (postId, text) => {
 };
 
 exports.upvote = async (postId) => {
-    return await postsDao.upvote(postId);
+    const isUpvote = true;
+    return await postsDao.vote(postId, isUpvote);
 };
 
 exports.downvote = async (postId) => {
-    return await postsDao.downvote(postId);
+    const isUpvote = false;
+    return await postsDao.vote(postId, isUpvote);
+};
+
+exports.topPosts =  async () => {
+    return await postsDao.topPosts();
 };

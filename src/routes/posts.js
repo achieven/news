@@ -44,4 +44,13 @@ router.put('/downvote/:postId', async (req, res) => {
   }
 });
 
+router.get('/top-posts', async (req, res) => {
+  try {
+    await postsController.topPosts();
+    return res.json({error: false, content: true});
+  } catch (err) {
+    return res.status(500).json({error: true, content: "Internal Server Error"});
+  }
+});
+
 module.exports = router;

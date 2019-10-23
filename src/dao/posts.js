@@ -4,8 +4,7 @@ const TOP_POSTS_NUMBER = 3;
 
 exports.create = async (uuid, text, createdAt, votes) => {
     try {
-        const query = `insert into posts (id, text, createdAt, votes) values ('${uuid}', '${text}', FROM_UNIXTIME(${createdAt}/1000), ${votes})`;
-        await mysql.query(query);//TODO use knex}
+        await mysql.query(`insert into posts (id, text, createdAt, votes) values ('${uuid}', '${text}', FROM_UNIXTIME(${createdAt}/1000), ${votes})`);//TODO use knex}
         return true;
     } catch (err) {
         console.log(err.message);
@@ -15,8 +14,7 @@ exports.create = async (uuid, text, createdAt, votes) => {
 
 exports.update = async (uuid, text) => {
     try {
-        const query = `update posts set text='${text}' where id='${uuid}'`;
-        await mysql.query(query);
+        await mysql.query(`update posts set text='${text}' where id='${uuid}'`);
         return true;
     } catch (err) {
         console.log(err.message);
@@ -24,17 +22,18 @@ exports.update = async (uuid, text) => {
     }
 };
 
-exports.upvote = async (uuid) => {
+exports.vote = async (uuid, isUpvote) => {
     try {
-        await mysql.beginTransaction()
-        //TODO  - there
+        const sign = isUpvote ? '+' : '-';
+        await mysql.beginTransaction();
         await mysql.query(`select @points := votes, @time := unix_timestamp(createdAt)/3600, @gravity := 1.8 from posts where id='${uuid}' for update`);
-        await mysql.query(`update posts set votes=(select @points+1) where id='${uuid}'`);
-        await mysql.query(`select @score := (select (@points)/(pow(@time+2, @gravity)))`);
+        await mysql.query(`update posts set votes=(select @points${sign}1) where id='${uuid}'`);
+        await mysql.query('select * from top_posts for update');
+        await mysql.query(`select @score := (select (@points))`);
         await mysql.query(`insert into top_posts (id, score) values('${uuid}', @score) on duplicate key update score = @score`);
         await mysql.query(`select @lowest_id := id from top_posts order by score limit 1 for update`);
         await mysql.query(`select @count := count(*) from top_posts`);
-        await mysql.query(`delete from top_posts where id = @lowest_id and @count = ${TOP_POSTS_NUMBER+1}`);
+        await mysql.query(`delete from top_posts where id = @lowest_id and @count = ${TOP_POSTS_NUMBER+2}`);
         await mysql.commit();
         return true;
     } catch (err) {
@@ -44,10 +43,6 @@ exports.upvote = async (uuid) => {
     }
 };
 
-exports.downvote = (uuid, text) => {
-    mysql.query()//
+exports.topPosts = async () => {
+  await mysql.query(`select post.text, post.votes from top_posts top_post join posts post on top_post.id = post.id order by top_post.score`)
 };
-
-function updateScore() {
-
-}
