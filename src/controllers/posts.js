@@ -8,8 +8,8 @@ exports.create = async (text) => {
     return await postsDao.create(uuid, text, createdAt, votes);
 };
 
-exports.update = async (postId, text) => {
-    return await postsDao.update(postId, text);
+exports.edit = async (postId, text) => {
+    return await postsDao.edit(postId, text);
 };
 
 exports.upvote = async (postId) => {
