@@ -1,17 +1,18 @@
 # news
 
 
-## prerequisites:
+## Run the project  
+### prerequisites:
 install mysql (specifically was developed with mysql 8.0.16 on Linux Ubuntu 16.04)   
 inside mysql - create database news
 restore database from dump file: npm run prepare (or) mysql -uroot -p news < src/database/news.sql
 
-## start process:
+### start process:
 npm start (or) node src/index.js
 
 
 
-## explanation:
+## Explanation:
 ### score algorithm:
 Taken from this article: https://medium.com/hacking-and-gonzo/how-hacker-news-ranking-algorithm-works-1d9b0cf2c08d.  
 ```
