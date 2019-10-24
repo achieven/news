@@ -4,7 +4,7 @@
 ## Run the project  
 ### prerequisites:
 install mysql (specifically was developed with mysql 8.0.16 on Linux Ubuntu 16.04)   
-inside mysql - create database news
+inside mysql - create database news  
 restore database from dump file: npm run prepare (or) mysql -uroot -p news < src/database/news.sql
 
 ### start process:
