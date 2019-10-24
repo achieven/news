@@ -1,6 +1,7 @@
 const mysql = require('../database/mysql');
 
-const TOP_POSTS_NUMBER = 7;
+const TOP_POSTS_NUMBER = 30;
+const TOP_POSTS_OFFSET = 100;
 
 exports.topPosts = async () => {
     try {
@@ -12,11 +13,12 @@ exports.topPosts = async () => {
     }
 };
 
+//TODO get variables in ja
 exports.updateScore = async (postId) => {
     await mysql.query('select * from top_posts for update');
     await mysql.query(`select @score := (select (@points-1)/(power(@time+2,@gravity)))`);
     await mysql.query(`insert into top_posts (id, score) values('${postId}', @score) on duplicate key update score = @score`);
     await mysql.query(`select @lowest_id := id from top_posts order by score limit 1 for update`);
     await mysql.query(`select @count := count(*) from top_posts`);
-    await mysql.query(`delete from top_posts where id = @lowest_id and @count = ${TOP_POSTS_NUMBER+2}`);
+    await mysql.query(`delete from top_posts where id = @lowest_id and @count = ${TOP_POSTS_NUMBER+TOP_POSTS_OFFSET}`);
 };
