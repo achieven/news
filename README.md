@@ -29,7 +29,7 @@ The top-posts endpoint is implemented by a table which has TOP_POSTS_NUMBER + TO
 
 The TOP_POSTS_OFFSET parameter is for the event of downvote for a post which is inside the TOP_POSTS_NUMBER, so that another post which was outside the TOP_POSTS_NUMBER will be able to be retrieved by the top posts endpoint.  
 
-This implementation has a potential, though not so probable (in my opinion) problem, when downvoting consecutive posts inside the TOP_POSTS_NUMBER without any upvote to the posts outside the TOP_POSTS_NUMBER. Such event will result in high posts not entering the TOP_POSTS_NUMBER.  
+This implementation has a potential, though not so probable (in my opinion) incerrectness, when downvoting consecutive posts inside the TOP_POSTS_NUMBER without any upvote to the posts outside the TOP_POSTS_NUMBER. Such event will result in high posts not entering the TOP_POSTS_NUMBER.  
 
 The other option I saw was on every upvote to recalculate all the posts which are outside the TOP_POSTS_NUMBER, which seems it could be a heavy action in case there are a lot of posts.      
 
