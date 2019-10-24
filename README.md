@@ -32,7 +32,7 @@ This implementation has a potential, though not so probable (in my opinion) prob
 
 The other option I saw was on every upvote to recalculate all the posts which are outside the TOP_POSTS_NUMBER, which seems it could be a heavy action in case there are a lot of posts.      
 
-##TODOS:
+##TODOS:  
 dockerize with docker-compose  
 
 route validation   
