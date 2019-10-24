@@ -7,8 +7,8 @@ const postsController = require('../controllers/posts')
 router.post('/', async (req, res) => {
     const text = req.body.text;
     try {
-        const response = await postsController.create(text);
-        return res.json({error: false, content: response});
+        const result = await postsController.create(text);
+        return res.json({error: false, content: result});
     } catch (err) {
         return res.status(500).json({error: true, content: "Internal Server Error"});
     }
@@ -18,8 +18,8 @@ router.put('/:postId', async (req, res) => {
     const postId = req.params.postId;
     const text = req.body.text;
     try {
-        const response = await postsController.edit(postId, text);
-        return res.json({error: false, content: response});
+        const result = await postsController.edit(postId, text);
+        return res.json({error: false, content: result});
     } catch (err) {
         return res.status(500).json({error: true, content: "Internal Server Error"});
     }
@@ -28,8 +28,8 @@ router.put('/:postId', async (req, res) => {
 router.put('/upvote/:postId', async (req, res) => {
     const postId = req.params.postId;
     try {
-        const response = await postsController.upvote(postId);
-        return res.json({error: false, content: response});
+        const result = await postsController.upvote(postId);
+        return res.json({error: false, content: result});
     } catch (err) {
         return res.status(500).json({error: true, content: "Internal Server Error"});
     }
@@ -38,8 +38,8 @@ router.put('/upvote/:postId', async (req, res) => {
 router.put('/downvote/:postId', async (req, res) => {
     const postId = req.params.postId;
     try {
-        const response = await postsController.downvote(postId);
-        return res.json({error: false, content: response});
+        const result = await postsController.downvote(postId);
+        return res.json({error: false, content: result});
     } catch (err) {
         console.log(err.message);
         return res.status(500).json({error: true, content: "Internal Server Error"});
@@ -48,8 +48,8 @@ router.put('/downvote/:postId', async (req, res) => {
 
 router.get('/top-posts', async (req, res) => {
   try {
-      const response = await postsController.topPosts();
-    return res.json({error: false, content: response});
+      const result = await postsController.topPosts();
+    return res.json({error: false, content: result});
   } catch (err) {
       console.log(err.message);
       return res.status(500).json({error: true, content: "Internal Server Error"});
