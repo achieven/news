@@ -34,7 +34,17 @@ This implementation has a potential, though not so probable (in my opinion) ince
 The other option I saw was on every upvote to recalculate all the posts which are outside the TOP_POSTS_NUMBER, which seems it could be a heavy action in case there are a lot of posts.      
 
 ## TODOS:  
+
+### important:  
 dockerize with docker-compose  
+
+check transaction isolation - maybe change to read committed  
+
+add sanity tests  
+
+think again about top posts incorrectness solution  
+
+### less important:  
 
 route validation   
 
@@ -46,10 +56,7 @@ update scores function - get variables in node instead of in mysql. current synt
 
 insert into errors db instead of logging them  
 
-add sanity tests  
-
 use knex or other alternative for safer query build  
 
 don't allow empty text
 
-check transaction isolation - maybe change to read committed
