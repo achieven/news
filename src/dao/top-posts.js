@@ -13,7 +13,6 @@ exports.topPosts = async () => {
     }
 };
 
-//TODO get variables in ja
 exports.updateScore = async (postId) => {
     await mysql.query('select * from top_posts for update');
     await mysql.query(`select @score := (select (@points-1)/(power(@time+2,@gravity)))`);

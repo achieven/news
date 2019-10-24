@@ -2,8 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 const postsController = require('../controllers/posts')
-//TODO route validation
-//TODO return to client only known errors
+
 router.post('/', async (req, res) => {
     const text = req.body.text;
     try {

@@ -1,10 +1,6 @@
 const mysql       = require('../database/mysql');
 const topPostsDao = require('./top-posts');
 
-// TODO insert into errors db instead of logging
-// TODO add sanity tests
-// TODO use knex
-// TODO set transaction to read committed?
 exports.create = async (postId, text, createdAt, votes) => {
     try {
         await mysql.beginTransaction();
