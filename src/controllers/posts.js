@@ -1,5 +1,7 @@
-const postsDao = require('../dao/posts');
 const uuidv1   = require('uuid/v1');
+
+const postsDao = require('../dao/posts');
+const topPostsDao = require('../dao/top-posts');
 
 exports.create = async (text) => {
     const uuid = uuidv1();
@@ -23,5 +25,5 @@ exports.downvote = async (postId) => {
 };
 
 exports.topPosts =  async () => {
-    return await postsDao.topPosts();
+    return await topPostsDao.topPosts();
 };
